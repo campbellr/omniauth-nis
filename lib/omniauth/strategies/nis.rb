@@ -50,5 +50,5 @@ module OmniAuth
   end
 end
 
-OmniAuth.config.add_camelization 'nis', 'NIS'i
+OmniAuth.config.add_camelization 'nis', 'NIS'
 

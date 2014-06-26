@@ -12,9 +12,6 @@ module OmniAuth
         @configuration = configuration.dup
         @configuration[:allow_anonymous] ||= false
         @logger = @configuration.delete(:logger)
-        VALID_ADAPTER_CONFIGURATION_KEYS.each do |name|
-          instance_variable_set("@#{name}", @configuration[name])
-        end
       end
       def auth_user(conf={})
         passwd = yp_match(conf[:username]).split(':')
