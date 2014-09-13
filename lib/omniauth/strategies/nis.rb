@@ -5,6 +5,8 @@ module OmniAuth
     class NIS
       include OmniAuth::Strategy
       option :title, "NIS Authentication" #default title for authentication form
+      option :domain, nil
+      option :email_domain, nil
       option :name_proc, lambda {|n| n}
 
       def request_phase
@@ -17,11 +19,9 @@ module OmniAuth
 
       def callback_phase
         @adaptor = OmniAuth::NIS::Adaptor.new @options
-
         return fail!(:missing_credentials) if missing_credentials?
         begin
           @nis_user_info = @adaptor.auth_user(:username => request['username'], :password => request['password'])
-          puts @nis_user_info
           return fail!(:invalid_credentials) if !@nis_user_info
 
           @user_info = @nis_user_info
@@ -51,4 +51,3 @@ module OmniAuth
 end
 
 OmniAuth.config.add_camelization 'nis', 'NIS'
-
